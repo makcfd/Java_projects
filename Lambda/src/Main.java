@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) {
 
+        // Calculator
         Calculator calc = Calculator.instance.get();
 
         int a = calc.plus.apply(1, 2);
@@ -14,6 +15,14 @@ public class Main {
             System.out.println("Cannot divide by 0");
 
         };
+
+        // Listener
+
+        OnTaskDoneListener listener = System.out::println;
+
+
+        Worker worker = new Worker(listener);
+        worker.start();
 
     }
 }
