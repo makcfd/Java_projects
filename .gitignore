@@ -4,3 +4,5 @@ Sorting algorithms/
 Stream/
 *.xml
 *.iml
+.idea/
+out/
