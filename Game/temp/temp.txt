@@ -1,0 +1,11 @@
+2021/12/09 21:00:26 Folder <src> has been created. 
+2021/12/09 21:00:26 Folder <res> has been created. 
+2021/12/09 21:00:26 Folder <savegames> has been created. 
+2021/12/09 21:00:26 Folder <temp> has been created. 
+2021/12/09 21:00:26 Folder <main> has been created in src. 
+2021/12/09 21:00:26 Folder <test> has been created in src. 
+2021/12/09 21:00:26 Folder <drawables> has been created in res. 
+2021/12/09 21:00:26 Folder <vectors> has been created in res. 
+2021/12/09 21:00:26 Folder <icons> has been created in res. 
+2021/12/09 21:00:26 File <Main.java> has been created in src/main/. 
+2021/12/09 21:00:26 File <Utils.java> has been created in src/main/. 
