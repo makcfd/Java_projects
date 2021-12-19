@@ -11,13 +11,12 @@ import java.util.zip.ZipOutputStream;
 public class Main {
 
     private static int counter = 1;
+    private static StringBuilder logs = new StringBuilder();
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static
+    Calendar cal = Calendar.getInstance();
 
     public static void main(String[] args) {
-
-
-        StringBuilder logs = new StringBuilder();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Calendar cal = Calendar.getInstance();
 
         List<String> nameOfFolders = Arrays.asList("src", "res", "savegames", "temp");
         List<String> srcSubFolders = Arrays.asList("main", "test");
@@ -25,47 +24,23 @@ public class Main {
         String root = "/Users/Armi/IdeaProjects/Game/";
 
         // Creating general directories
-        for (String name : nameOfFolders) {
-            File dir = new File(root + name);
-            if (dir.mkdir()) {
-                logs.append(dateFormat.format(cal.getTime()) + " Folder <" + name + "> has been created. \n");
-            } else {
-                logs.append(dateFormat.format(cal.getTime()) + " Folder <" + name + "> has NOT been created. \n");
-            }
-        }
+
+        for (String name: nameOfFolders) { createFolders(root, name); }
+
         // Creating src subfolders
-        for (String name : srcSubFolders) {
-            File dir = new File(root + "src/" + name);
-            if (dir.mkdir()) {
-                logs.append(dateFormat.format(cal.getTime()) + " Folder <" + name + "> has been created in src. \n");
-            } else {
-                logs.append(dateFormat.format(cal.getTime()) + " Folder <" + name + "> has NOT been created in src. \n");
-            }
-        }
+        for (String name : srcSubFolders) { createFolders(root, name, "src/"); }
+
         // Creating res subfolders
-        for (String name : resSubFolders) {
-            File dir = new File(root + "res/" + name);
-            if (dir.mkdir()) {
-                logs.append(dateFormat.format(cal.getTime()) + " Folder <" + name + "> has been created in res. \n");
-            } else {
-                logs.append(dateFormat.format(cal.getTime()) + " Folder <" + name + "> has NOT been created in res. \n");
-            }
-        }
+        for (String name : resSubFolders) { createFolders(root, name, "res/"); }
+
         //==============================================================
         // Creating files "Main.java", "Utils.java"
         //==============================================================
 
         List<String> mainFiles = Arrays.asList("Main.java", "Utils.java");
 
-        for (String fileName : mainFiles) {
-            File myFile = new File(root + "src/main/" + fileName);
-            try {
-                if (myFile.createNewFile())
-                    logs.append(dateFormat.format(cal.getTime()) + " File <" + fileName + "> has been created in src/main/. \n");
-            } catch (IOException ex) {
-                logs.append(dateFormat.format(cal.getTime()) + ex.getMessage());
-            }
-        }
+        for (String fileName : mainFiles) { createFiles(root, fileName, "src/main/"); }
+
         //==============================================================
         // Saving logs into temp.txt file
         //==============================================================
@@ -76,8 +51,6 @@ public class Main {
         } catch (IOException ex) {
             logs.append(ex.getMessage());
         }
-        //System.out.println(logs.toString());
-
 
         // serialization of objects
         String pathToSaveProgress = "/Users/Armi/IdeaProjects/Game/savegames/";
@@ -97,9 +70,7 @@ public class Main {
         List<String> filesToZip = new ArrayList<>();
 
         if (dir.isDirectory()) {
-
             for (File item : dir.listFiles()) {
-
                 if (item.isDirectory()) {
                     //System.out.println(item.getName() + " - каталог");
                 } else {
@@ -153,4 +124,37 @@ public class Main {
         }
     }
 
+    // method to form path for creating files and folders
+    private static String formPath(String rootFolder, String leafFolder, String parentFolder) {
+        return  parentFolder == null ? rootFolder + leafFolder : rootFolder + parentFolder + leafFolder;
+    }
+
+    // overloading methods to create folders, which is necessary to cover next scenario:
+    //      use case 1: create folders in root
+    //      use case 2: create subfolders
+    private static void createFolders(String root, String name) {
+        createFolders(root, name, null);
+    }
+
+    private static void createFolders(String root, String folderName, String parentName) {
+        String folderPath = formPath(root, folderName, parentName);
+        File dir = new File(folderPath);
+        if (dir.mkdir()) {
+            logs.append(dateFormat.format(cal.getTime()) + " Folder <" + folderName + "> has been created. \n");
+        } else {
+            logs.append(dateFormat.format(cal.getTime()) + " Folder <" + folderName + "> has NOT been created. \n");
+        }
+    }
+
+    // method to create files in folders
+    private static void createFiles(String root, String fileName, String parentName) {
+        String filePath = formPath(root, fileName, parentName);
+        File myFile = new File(filePath);
+        try {
+            if (myFile.createNewFile())
+                logs.append(dateFormat.format(cal.getTime()) + " File <" + fileName + "> has been created in src/main/. \n");
+        } catch (IOException ex) {
+            logs.append(dateFormat.format(cal.getTime()) + ex.getMessage());
+        }
+    }
 }
