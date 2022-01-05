@@ -148,6 +148,7 @@ public class MedicalServiceTest {
         MedicalService medicalService = new MedicalServiceImpl(patientInfoRepository, alertService);
         medicalService.checkTemperature("555", currentTemperature);
 
+
         // then:
         // medicalService returns void so we cannot apply assertEquals
         // we can check if internal methods of medicalService has been invoked
@@ -156,8 +157,10 @@ public class MedicalServiceTest {
                 getById("555");
 
         // we also check that alestService in this test has not been invoked
-        Mockito.verify(alertService, Mockito.times(0)).send("anything");
+        // we can use verifyNoInteractions() method instead of comparing with times of invocations
+        Mockito.verifyNoInteractions(alertService);
 
+        Mockito.verifyNoMoreInteractions(patientInfoRepository);
     }
 
 }
