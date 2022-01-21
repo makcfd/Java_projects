@@ -16,7 +16,7 @@ public class Main {
 
         // adapted usage of Calculator class
         /**
-         * to implement adopted usage we create an adanper InrsCalculator
+         * to implement adopted usage we create an adanper IntsCalculator
          * the difference is:
          *  - data type returned. double -> int casting
          *  - the way arguments passed: in adopted version arguments passed directly to calculation method
