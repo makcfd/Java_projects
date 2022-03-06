@@ -6,3 +6,4 @@ Stream/
 *.iml
 .idea/
 out/
+target/
