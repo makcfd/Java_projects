@@ -6,21 +6,35 @@ public class Main {
     public static void main(String[] args) {
 
         new Thread(null,()->{
-            while (!boxClosed) {
+            while (rounds>0) {
+                if (!boxClosed) {
                 System.out.println("Closing the box");
                 boxClosed = true;
+                rounds--;
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Thread.yield();
             }
+
         }, "Box").start();
 
         new Thread(null, ()->{
-            while(boxClosed) {
-
+            while(rounds>0) {
+                if(boxClosed) {
                 System.out.println("Opening the box");
                 boxClosed = false;
                 rounds--;
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Thread.yield();
-                //System.out.println("Round number: " + rounds);
             }
         },"Gamer").start();
 
