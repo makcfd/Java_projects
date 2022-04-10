@@ -18,8 +18,8 @@ public class CreditCalcTest {
         int requestedAmount = 100;
         int interestRate = 5;
         int creditLength = 10;
-        int expectedTotalCost = 10;
-        int expectedOverPayment = 10;
+        int expectedTotalCost = 150;
+        int expectedOverPayment = 50;
 
         // when
         Credit credit1 = calculator.produceCredit(requestedAmount,interestRate,creditLength);
