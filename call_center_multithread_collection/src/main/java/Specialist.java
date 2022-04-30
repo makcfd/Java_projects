@@ -10,14 +10,18 @@ public class Specialist extends Thread {
         @Override
         public void run() {
             while (!isInterrupted()) {
-                Integer callNum = callsAwait.poll();
 
-                System.out.println("I am a thread " + getName() + " taking call " + callNum);
+
+                Integer callNum = null;
                 try {
-                    Thread.sleep(1500);
+                    callNum = callsAwait.take();
                 } catch (InterruptedException e) {
                     break;
                 }
+
+
+                System.out.println("I am a thread " + getName() + " taking call " + callNum);
+
             }
         }
     }

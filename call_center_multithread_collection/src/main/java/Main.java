@@ -30,7 +30,6 @@ public class Main {
 
             for (Specialist thread: allSpecialists) {
                 thread.start();
-                Thread.sleep(200);
             }
             // Main thread is waiting
             try {
